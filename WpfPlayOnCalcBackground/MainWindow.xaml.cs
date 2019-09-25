@@ -2,6 +2,8 @@
 using System.Media;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Threading.Tasks;
+using System;
 
 namespace WpfPlayOnCalcBackground
 {
@@ -51,12 +53,15 @@ namespace WpfPlayOnCalcBackground
             //sp.Tag = true;
             me.Play();
 
-            for (int i = 0; i < 200; i++)
+            Dispatcher.BeginInvoke((Action)(() =>
             {
-                System.Threading.Thread.Sleep(100);
-                TextBlock.Text += (char)i;
-                InvalidateVisual();
-            }
+                for (int i = 0; i < 200; i++)
+                {
+                    System.Threading.Thread.Sleep(100);
+                    TextBlock.Text += 'x';
+                }
+            }));
+            
         }
 
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
